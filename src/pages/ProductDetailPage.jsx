@@ -64,13 +64,16 @@ export default function ProductDetailPage() {
             {product.category_name}
           </p>
           <h1 className="text-2xl font-bold text-gray-800 mb-2">{product.name}</h1>
-          <p className="text-3xl font-bold text-indigo-600 mb-4">
+          <p className="inline-block bg-marigold text-ink text-2xl font-700 px-3 py-1 rounded mb-4">
             ₦{Number(product.price).toLocaleString()}
           </p>
           <p className="text-gray-500 text-sm mb-6">{product.description}</p>
 
-          <span className={`text-sm font-medium ${product.in_stock ? 'text-green-500' : 'text-red-400'}`}>
-            {product.in_stock ? `In Stock (${product.stock} available)` : 'Out of Stock'}
+          <span className="text-sm font-medium inline-flex items-center gap-1.5">
++            <span className={`w-1.5 h-1.5 rounded-full ${product.in_stock ? 'bg-forest' : 'bg-gray-300'}`} />
++            <span className={product.in_stock ? 'text-forest' : 'text-gray-400'}>
++              {product.in_stock ? `In stock — ${product.stock} available` : 'Out of stock'}
++            </span>
           </span>
 
           {product.in_stock && (

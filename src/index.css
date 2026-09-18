@@ -1,1 +1,17 @@
-@import "tailwindcss";
+ @import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --color-ink: #15181f;
+  --color-paper: #fdfcfa;
+  --color-marigold: #f5a623;
+  --color-marigold-dark: #d6900f;
+  --color-forest: #1f6d4c;
+  --color-clay: #c9563b;
+  --color-mist: #e7e2d8;
+}
+body {
+  font-family: var(--font-sans);
+  background: var(--color-paper);
+}

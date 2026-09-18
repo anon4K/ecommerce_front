@@ -9,9 +9,9 @@ export default function HomePage() {
 
   useEffect(() => {
     API.get('/products/')
-  .then(res => setProducts(Array.isArray(res.data) ? res.data : res.data.results ?? []))
-  .catch(console.error)
-  .finally(() => setLoading(false))
+      .then(res => setProducts(Array.isArray(res.data) ? res.data : res.data.results ?? []))
+      .catch(console.error)
+      .finally(() => setLoading(false))
   }, [])
 
   const filtered = products.filter(p =>
@@ -24,13 +24,13 @@ export default function HomePage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">All Products</h1>
+      <div className="mb-10">
+        <h1 className="font-display text-3xl font-700 text-ink mb-3">All Products</h1>
         <input
           placeholder="Search products..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full max-w-md bg-transparent border-0 border-b-2 border-mist px-1 py-2 text-ink placeholder:text-gray-400 focus:outline-none focus:border-marigold transition-colors"
         />
       </div>
 
@@ -42,9 +42,9 @@ export default function HomePage() {
             <Link
               key={product.id}
               to={`/products/${product.slug}`}
-              className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+              className="group bg-white rounded-lg border border-mist hover:border-marigold overflow-hidden transition-colors"
             >
-              <div className="h-48 bg-gray-100 flex items-center justify-center">
+              <div className="relative h-48 bg-gray-50 flex items-center justify-center">
                 {product.primary_image ? (
                   <img
                     src={product.primary_image}
@@ -54,19 +54,22 @@ export default function HomePage() {
                 ) : (
                   <span className="text-gray-300 text-sm">No image</span>
                 )}
+                <span className="absolute top-3 right-3 bg-marigold text-ink text-sm font-600 px-2.5 py-1 rounded shadow-sm">
+                  ₦{Number(product.price).toLocaleString()}
+                </span>
               </div>
               <div className="p-4">
-                <p className="text-xs text-indigo-500 font-medium mb-1">
+                <p className="text-xs text-clay font-medium mb-1">
                   {product.category_name}
                 </p>
-                <h2 className="font-semibold text-gray-800 mb-1 truncate">
+                <h2 className="font-semibold text-ink mb-2 truncate group-hover:text-marigold-dark transition-colors">
                   {product.name}
                 </h2>
-                <p className="text-indigo-600 font-bold">
-                  ₦{Number(product.price).toLocaleString()}
-                </p>
-                <span className={`text-xs mt-1 inline-block ${product.in_stock ? 'text-green-500' : 'text-red-400'}`}>
-                  {product.in_stock ? 'In Stock' : 'Out of Stock'}
+                <span className="text-xs inline-flex items-center gap-1.5">
+                  <span className={`w-1.5 h-1.5 rounded-full ${product.in_stock ? 'bg-forest' : 'bg-gray-300'}`} />
+                  <span className={product.in_stock ? 'text-forest' : 'text-gray-400'}>
+                    {product.in_stock ? 'In stock' : 'Out of stock'}
+                  </span>
                 </span>
               </div>
             </Link>

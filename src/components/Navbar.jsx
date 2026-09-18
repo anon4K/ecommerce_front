@@ -13,14 +13,14 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-ink sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold text-indigo-600">
+        <Link to="/" className="font-display text-xl font-700 text-paper tracking-tight">
           ShopHub
         </Link>
 
         <div className="flex items-center gap-6">
-          <Link to="/" className="text-gray-600 hover:text-indigo-600">
+          <Link to="/" className="text-sm text-gray-300 hover:text-marigold transition-colors">
             Products
           </Link>
 
@@ -37,15 +37,13 @@ export default function Navbar() {
                 <Link to="/become-vendor" className="text-gray-600 hover:text-indigo-600">
                   Sell on ShopHub
                 </Link>
-              )
-
-              }
+              )}
               
               
               <Link to="/cart" className="relative text-gray-600 hover:text-indigo-600">
                 Cart
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-4 bg-indigo-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-4 bg-marigold text-ink text-xs font-600 rounded-full w-5 h-5 flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
@@ -65,7 +63,7 @@ export default function Navbar() {
               </Link>
               <Link
                 to="/register"
-                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+                className="bg-marigold text-ink text-sm font-600 px-4 py-2 rounded-md hover:bg-marigold-dark transition-colors"
               >
                 Register
               </Link>
