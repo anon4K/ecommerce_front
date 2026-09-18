@@ -9,9 +9,9 @@ export default function HomePage() {
 
   useEffect(() => {
     API.get('/products/')
-      .then(res => setProducts(res.data))
-      .catch(console.error)
-      .finally(() => setLoading(false))
+  .then(res => setProducts(Array.isArray(res.data) ? res.data : res.data.results ?? []))
+  .catch(console.error)
+  .finally(() => setLoading(false))
   }, [])
 
   const filtered = products.filter(p =>
