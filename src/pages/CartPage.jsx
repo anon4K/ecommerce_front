@@ -65,7 +65,7 @@ export default function CartPage() {
             </div>
 
             <p className="w-28 text-right font-semibold text-gray-800">
-              ₦{Number(item.product_detail?.price * item.quantity).toLocaleString()} 
+              ₦{Number(item.subtotal).toLocaleString()}
             </p>
 
             <button
@@ -81,7 +81,7 @@ export default function CartPage() {
           <div>
             <p className="text-sm text-gray-500">Total</p>
             <p className="text-2xl font-bold text-indigo-600">
-              ₦{Number(cart.total).toLocaleString()}
+              ₦{cart.items.reduce((sum, item) => sum + Number(item.subtotal), 0).toLocaleString()}
             </p>
           </div>
           <button

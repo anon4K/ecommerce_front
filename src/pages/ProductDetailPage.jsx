@@ -70,10 +70,10 @@ export default function ProductDetailPage() {
           <p className="text-gray-500 text-sm mb-6">{product.description}</p>
 
           <span className="text-sm font-medium inline-flex items-center gap-1.5">
-+            <span className={`w-1.5 h-1.5 rounded-full ${product.in_stock ? 'bg-forest' : 'bg-gray-300'}`} />
-+            <span className={product.in_stock ? 'text-forest' : 'text-gray-400'}>
-+              {product.in_stock ? `In stock — ${product.stock} available` : 'Out of stock'}
-+            </span>
+            <span className={`w-1.5 h-1.5 rounded-full ${product.in_stock ? 'bg-forest' : 'bg-gray-300'}`} />
+            <span className={product.in_stock ? 'text-forest' : 'text-gray-400'}>
+              {product.in_stock ? `In stock — ${product.stock} available` : 'Out of stock'}
+            </span>
           </span>
 
           {product.in_stock && (

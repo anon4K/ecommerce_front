@@ -80,7 +80,7 @@ export default function CheckoutPage() {
           ))}
           <div className="flex justify-between mt-4 font-bold text-lg">
             <span>Total</span>
-            <span className="text-indigo-600">₦{Number(cart.total).toLocaleString()}</span>
+            <span className="text-indigo-600">₦{cart.items.reduce((sum, item) => sum + Number(item.subtotal), 0).toLocaleString()}</span>
           </div>
         </div>
       </div>
