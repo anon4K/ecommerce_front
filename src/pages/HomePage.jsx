@@ -33,8 +33,6 @@ export default function HomePage() {
     return matchesSearch && matchesCategory
   })
 
-  const featuredProducts = products.slice(0, 4)
-
   return (
     <main className="min-h-screen bg-paper">
       {/* Hero */}

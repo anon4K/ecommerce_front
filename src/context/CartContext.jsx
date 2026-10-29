@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import API from '../services/api'
 import { useAuth } from './AuthContext'
 
@@ -8,22 +9,37 @@ export function CartProvider({ children }) {
   const { user } = useAuth()
   const [cart, setCart] = useState(null)
 
-  useEffect(() => {
-    if (user) {
-      fetchCart()
-    } else {
-      setCart(null)
-    }
-  }, [user])
-
-  const fetchCart = async () => {
+  const fetchCart = useCallback(async () => {
     try {
       const res = await API.get('/cart/')
       setCart(res.data)
     } catch {
       setCart(null)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    if (!user) return
+
+    let isMounted = true
+
+    const loadCart = async () => {
+      try {
+        const res = await API.get('/cart/')
+        if (isMounted) setCart(res.data)
+      } catch {
+        if (isMounted) setCart(null)
+      }
+    }
+
+    void loadCart()
+
+    return () => {
+      isMounted = false
+    }
+  }, [user])
+
+  const cartValue = user ? cart : null
 
   const addToCart = async (productId, quantity = 1) => {
     await API.post('/cart/add/', { product: productId, quantity })
@@ -43,7 +59,7 @@ export function CartProvider({ children }) {
   const cartCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0
 
   return (
-    <CartContext.Provider value={{ cart, cartCount, addToCart, updateItem, removeItem, fetchCart }}>
+    <CartContext.Provider value={{ cart: cartValue, cartCount, addToCart, updateItem, removeItem, fetchCart }}>
       {children}
     </CartContext.Provider>
   )

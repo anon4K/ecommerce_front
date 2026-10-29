@@ -1,11 +1,7 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import API from '../services/api'
-import { useAuth } from '../context/AuthContext'
 
 export default function BecomeVendorPage() {
-  const { user } = useAuth()
-  const navigate = useNavigate()
   const [form, setForm] = useState({ shop_name: '', shop_description: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

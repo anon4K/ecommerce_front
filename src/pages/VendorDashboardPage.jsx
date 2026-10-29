@@ -30,12 +30,6 @@ export default function VendorDashboardPage() {
   const [ordersLoading, setOrdersLoading] = useState(true)
   const [updatingId, setUpdatingId] = useState(null)
 
-  useEffect(() => {
-    fetchProducts()
-    fetchOrderItems()
-    API.get('/products/categories/').then(res => setCategories(res.data))
-  }, [])
-
   const fetchProducts = () => {
     API.get('/products/my-products/')
       .then(res => setProducts(res.data))
@@ -49,6 +43,12 @@ export default function VendorDashboardPage() {
       .catch(console.error)
       .finally(() => setOrdersLoading(false))
   }
+
+  useEffect(() => {
+    void fetchProducts()
+    void fetchOrderItems()
+    API.get('/products/categories/').then(res => setCategories(res.data))
+  }, [])
 
   const handleStatusChange = async (itemId, newStatus) => {
     setUpdatingId(itemId)

@@ -18,11 +18,11 @@ export default function CheckoutPage() {
     setLoading(true)
     setError('')
     try {
-      const res = await API.post('/orders/create/', {
+      await API.post('/orders/create/', {
         shipping_address: address
       })
       await fetchCart()
-      navigate(`/orders`)
+      navigate('/orders')
     } catch (err) {
       const data = err.response?.data
       const msg = data?.non_field_errors?.[0] || data?.shipping_address?.[0] || 'Failed to place order.'

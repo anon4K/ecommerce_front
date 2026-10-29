@@ -20,7 +20,7 @@ export default function ProductDetailPage() {
       .then(res => setProduct(res.data))
       .catch(() => navigate('/'))
       .finally(() => setLoading(false))
-  }, [slug])
+  }, [slug, navigate])
 
   const handleAddToCart = async () => {
     if (!user) return navigate('/login')
