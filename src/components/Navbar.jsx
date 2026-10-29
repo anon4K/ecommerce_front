@@ -26,21 +26,21 @@ export default function Navbar() {
 
           {user ? (
             <>
-              <Link to="/orders" className="text-gray-600 hover:text-indigo-600">
+              <Link to="/orders" className="text-sm text-gray-300 hover:text-marigold transition-colors">
                 Orders
               </Link>
-              {user?.profile?.isVendor ? (
-                <Link to="/vendor/" className="text-gray-600 hover:text-indigo-600">
+              {user?.profile?.is_vendor ? (
+                <Link to="/vendor/" className="text-sm text-gray-300 hover:text-marigold transition-colors">
                   My Shop
                 </Link>
               ) : (
-                <Link to="/become-vendor" className="text-gray-600 hover:text-indigo-600">
+                <Link to="/become-vendor" className="text-sm text-gray-300 hover:text-marigold transition-colors">
                   Sell on ShopHub
                 </Link>
               )}
               
               
-              <Link to="/cart" className="relative text-gray-600 hover:text-indigo-600">
+              <Link to="/cart" className="text-sm text-gray-300 hover:text-marigold transition-colors">
                 Cart
                 {cartCount > 0 && (
                   <span className="absolute -top-2 -right-4 bg-marigold text-ink text-xs font-600 rounded-full w-5 h-5 flex items-center justify-center">

@@ -318,7 +318,7 @@ export default function VendorDashboardPage() {
                     </p>
                   </div>
                   <p className="font-semibold text-marigold-dark">
-                    ₦{Number(item.subtotal).toLocaleString()}
+                    ₦{Number(item.subtotal ?? item.price_at_purchase * item.quantity).toLocaleString()}
                   </p>
                 </div>
 
