@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import VendorDashboardPage from './pages/VendorDashboardPage'
 import BecomeVendorPage from './pages/BecomeVendorPage'
+import PaymentCallbackPage from './pages/PaymentCallbackPage'
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
@@ -40,6 +41,9 @@ export default function App() {
         } />
         <Route path="/become-vendor" element={
           <PrivateRoute><BecomeVendorPage /></PrivateRoute>
+        } />
+        <Route path="/payment/callback" element={
+          <PrivateRoute><PaymentCallbackPage></PaymentCallbackPage></PrivateRoute>
         } />
       </Routes>
     </div>

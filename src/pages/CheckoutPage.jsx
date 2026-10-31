@@ -1,33 +1,39 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import API from '../services/api'
 
 export default function CheckoutPage() {
-  const { cart, fetchCart } = useCart()
-  const navigate = useNavigate()
+  const { cart } = useCart()
   const [address, setAddress] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [orderId, setOrderId] = useState(null)
 
-  const handlePlaceOrder = async () => {
-    if (!address.trim()) {
+  const handlePay = async () => {
+    if (!orderId && !address.trim()) {
       setError('Please enter a shipping address.')
       return
     }
     setLoading(true)
     setError('')
     try {
-      await API.post('/orders/create/', {
-        shipping_address: address
-      })
-      await fetchCart()
-      navigate('/orders')
+      let id = orderId
+      if (!id) {
+        const orderRes = await API.post('/orders/create/', { shipping_address: address })
+        id = orderRes.data.id
+        setOrderId(id)
+      }
+      const payRes = await API.post('/payments/initialize/', { order_id: id })
+      window.location.href = payRes.data.authorization_url
     } catch (err) {
       const data = err.response?.data
-      const msg = data?.non_field_errors?.[0] || data?.shipping_address?.[0] || 'Failed to place order.'
-      setError(msg)
-    } finally {
+      setError(
+        data?.error ||
+        data?.non_field_errors?.[0] ||
+        data?.shipping_address?.[0] ||
+        data?.order_id?.[0] ||
+        'Something went wrong. Please try again.'
+      )
       setLoading(false)
     }
   }
@@ -52,17 +58,16 @@ export default function CheckoutPage() {
             placeholder="Enter your full shipping address..."
             value={address}
             onChange={e => setAddress(e.target.value)}
+            readOnly={!!orderId}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
           />
-          {error && (
-            <p className="text-red-500 text-sm mt-2">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           <button
-            onClick={handlePlaceOrder}
+            onClick={handlePay}
             disabled={loading}
             className="mt-4 w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 disabled:opacity-50 font-medium"
           >
-            {loading ? 'Placing order...' : 'Place Order'}
+            {loading ? 'Please wait...' : orderId ? 'Pay now' : 'Place Order & Pay'}
           </button>
         </div>
 
@@ -80,7 +85,9 @@ export default function CheckoutPage() {
           ))}
           <div className="flex justify-between mt-4 font-bold text-lg">
             <span>Total</span>
-            <span className="text-indigo-600">₦{cart.items.reduce((sum, item) => sum + Number(item.subtotal), 0).toLocaleString()}</span>
+            <span className="text-indigo-600">
+              ₦{cart.items.reduce((sum, item) => sum + Number(item.subtotal), 0).toLocaleString()}
+            </span>
           </div>
         </div>
       </div>
