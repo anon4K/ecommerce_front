@@ -67,6 +67,11 @@ export default function ProductDetailPage() {
           <p className="inline-block bg-marigold text-ink text-2xl font-700 px-3 py-1 rounded mb-4">
             ₦{Number(product.price).toLocaleString()}
           </p>
+          <p className="mb-4">
+            <span className="inline-block rounded-full bg-mist px-3 py-1 text-sm font-semibold capitalize text-gray-600">
+              {product.condition || 'new'}
+            </span>
+          </p>
           <p className="text-gray-500 text-sm mb-6">{product.description}</p>
 
           <span className="text-sm font-medium inline-flex items-center gap-1.5">

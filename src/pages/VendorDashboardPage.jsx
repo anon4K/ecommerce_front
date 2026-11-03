@@ -18,7 +18,7 @@ export default function VendorDashboardPage() {
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState({
-    name: '', description: '', price: '', stock: '', category: ''
+    name: '', description: '', price: '', stock: '', category: '', condition: 'new'
   })
   const [image, setImage] = useState(null)
   const [categories, setCategories] = useState([])
@@ -80,6 +80,7 @@ export default function VendorDashboardPage() {
         price: form.price,
         stock: form.stock,
         category: form.category,
+        condition: form.condition,
         is_active: true
       })
 
@@ -98,7 +99,7 @@ export default function VendorDashboardPage() {
       }
 
       setSuccess('Product listed successfully!')
-      setForm({ name: '', description: '', price: '', stock: '', category: '' })
+      setForm({ name: '', description: '', price: '', stock: '', category: '', condition: 'new' })
       setImage(null)
       setShowForm(false)
       fetchProducts()
@@ -227,6 +228,22 @@ export default function VendorDashboardPage() {
                       required
                     />
                   </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Condition
+                    </label>
+                    <select
+                      name="condition"
+                      value={form.condition}
+                      onChange={handleChange}
+                      className="w-full border border-mist rounded-md px-3 py-2 focus:outline-none focus:border-marigold"
+                      required
+                    >
+                      <option value="new">New</option>
+                      <option value="used">Used</option>
+                      <option value="refurbished">Refurbished</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div>
@@ -278,7 +295,8 @@ export default function VendorDashboardPage() {
                   <div>
                     <p className="font-semibold text-ink">{product.name}</p>
                     <p className="text-sm text-gray-400">
-                      ₦{Number(product.price).toLocaleString()} · Stock: {product.stock}
+                      ₦{Number(product.price).toLocaleString()} · Stock: {product.stock} ·{' '}
+                      <span className="capitalize">{product.condition || 'new'}</span>
                     </p>
                   </div>
                   <button

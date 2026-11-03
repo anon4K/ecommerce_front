@@ -193,6 +193,9 @@ export default function HomePage() {
                     <p className="text-[11px] font-bold uppercase tracking-wider text-clay truncate">
                       {product.category_name || 'Marketplace'}
                     </p>
+                    <span className="mt-2 inline-block rounded-full bg-mist px-2.5 py-1 text-[11px] font-semibold capitalize text-gray-600">
+                      {product.condition || 'new'}
+                    </span>
                     <h3 className="mt-1.5 font-semibold text-ink leading-5 line-clamp-2 min-h-10 group-hover:text-marigold-dark transition-colors">
                       {product.name}
                     </h3>
